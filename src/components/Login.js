@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { signInAPI } from "../actions";
 
 
-const Login = () => {
+const Login = (props) => {
     return (
         <Container>
             <Nav>
@@ -19,7 +21,7 @@ const Login = () => {
                     <img src="/images/login-hero.svg" alt=""/>
                 </Hero>
                 <Form>
-                    <Google>
+                    <Google onClick={() => props.SignIn}>
                         <img src="/images/google.svg" alt="" />
                         Sign in with Google
                     </Google>
@@ -161,10 +163,19 @@ z-index: 0;
 transition-duration: 167ms;
 font-size: 20px;
 color: rgba(0, 0, 0, 0.6);
-& :hover {
-    background-color: rgba(207, 207, 207, 0.25);
+&:hover {
+    background-color: rgba(112, 181, 249, 0.15);
     color: rgba(0, 0, 0, 0.75);
 }
 `;
 
-export default Login;
+// without redux toolkit
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    SignIn: () => dispatch(signInAPI),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
